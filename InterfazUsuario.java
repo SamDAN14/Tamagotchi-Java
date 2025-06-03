@@ -162,6 +162,18 @@ public class InterfazUsuario {
         boton.addActionListener(accion);
         panel.add(boton);
     }
+    
+    // Declarar imagenes de las acciones
+
+    private final ImageIcon m_normal = new ImageIcon("sprites/mascota_normal.png");
+    private final ImageIcon m_comiendo = new ImageIcon("sprites/mascota_comiendo.png");
+    private final ImageIcon m_entrenando = new ImageIcon("sprites/mascota_entrenando.png");
+    private final ImageIcon m_bañando = new ImageIcon("sprites/mascota_bañando.png");
+    private final ImageIcon m_durmiendo = new ImageIcon("sprites/mascota_durmiendo.png");
+    private final ImageIcon m_muerta = new ImageIcon("sprites/mascota_muerta.png");
+    private final ImageIcon m_hambrienta = new ImageIcon("sprites/mascota_hambrienta.png");
+    private final ImageIcon m_sucia = new ImageIcon("sprites/mascota_sucia.png");
+    private final ImageIcon m_cansada = new ImageIcon("sprites/mascota_cansada.png");
 
     private void actualizarInterfaz() {
         barraHambre.setValue(mascota.getHambre());
@@ -175,15 +187,15 @@ public class InterfazUsuario {
         
         // Cambiar imagen según estado
         if (!mascota.isEstaViva()) {
-            lblMascota.setIcon(new ImageIcon("sprites/mascota_muerta.png"));
+            lblMascota.setIcon(m_muerta);
             return;
         } 
         if (mascota.getHambre() > 70) {
-            lblMascota.setIcon(new ImageIcon("sprites/mascota_hambrienta.png"));
+            lblMascota.setIcon(m_hambrienta);
         } else if (mascota.getSuciedad() > 80) {
-            lblMascota.setIcon(new ImageIcon("sprites/mascota_sucia.png"));
+            lblMascota.setIcon(m_sucia);
         } else if (mascota.getEnergia() < 30) {
-            lblMascota.setIcon(new ImageIcon("sprites/mascota_cansada.png"));
+            lblMascota.setIcon(m_cansada);
         } else if (mascota.MasNormal()) {
             lblMascota.setIcon(m_normal);
         }   
@@ -203,23 +215,15 @@ public class InterfazUsuario {
         timer.start();
     }
 
-    // Declarar imagenes de las acciones
-
-    private final ImageIcon m_normal = new ImageIcon("sprites/mascota_normal.png");
-    private final ImageIcon m_comiendo = new ImageIcon("sprites/mascota_comiendo.png");
-    private final ImageIcon m_entrenando = new ImageIcon("sprites/mascota_entrenando.png");
-    private final ImageIcon m_bañando = new ImageIcon("sprites/mascota_bañando.png");
-    private final ImageIcon m_durmiendo = new ImageIcon("sprites/mascota_durmiendo.png");
-
     private void verificarEstadoMascota() {
         int nivelAc = mascota.getNivel();
         if (!mascota.isEstaViva()) {
             timerEstado.stop();
             Musica.ReproEfect("musica/game-over-8bit.wav");
-            JOptionPane.showMessageDialog(frame, "¡Tu mascota ha muerto! 😵", "Fin del Juego", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(frame, "¡" + mascota.getNombre() +" muerto! 😵", "Fin del Juego", JOptionPane.ERROR_MESSAGE);
         } else if (nivelAc > nivelAn) {
             Musica.ReproEfect("musica/level-up-8bit.wav");
-            JOptionPane.showMessageDialog(frame, "¡Tu mascota ha subido al nivel " + nivelAc + "!", "¡Felicidades!", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(frame, "¡" + mascota.getNombre() +" ha subido al nivel " + nivelAc + "!", "¡Felicidades!", JOptionPane.INFORMATION_MESSAGE);
             nivelAn = nivelAc;
         }
     }
